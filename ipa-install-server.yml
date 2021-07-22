@@ -3,6 +3,17 @@
   hosts: ipaserver
   become: true
 
+  pre_tasks:
+  - name: Ensure the ansible-freeipa pkg is loaded on the controller
+    yum:
+      name: ansible-freeipa
+      state: latest
+    delegate_to: localhost
+  - name: Set hostname
+    hostname:
+      name: "{{ inventory_hostname }}"
+      strategy: systemd
+
   roles:
   - role: ipaserver
     state: present
