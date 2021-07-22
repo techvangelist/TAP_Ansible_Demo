@@ -5,7 +5,7 @@
 
   pre_tasks:
   - name: Ensure the ansible-freeipa pkg is loaded on the controller
-    yum:
+    dnf:
       name: ansible-freeipa
       state: latest
     delegate_to: localhost
