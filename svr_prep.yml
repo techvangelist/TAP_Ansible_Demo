@@ -27,6 +27,7 @@
         state: present
         groups: wheel
         append: true
+        password: "{{ automation_user_pw | password('sha512' }}"
         create_home: true
         shell: /bin/bash
 
