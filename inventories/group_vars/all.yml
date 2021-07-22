@@ -1,0 +1,5 @@
+---
+automation_user: ansibleadm
+copy_current_user_key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
+copy_automation_user_key: "{{ lookup('file', '/home/' + automation_user + '/.ssh/id_rsa.pub') }}"
+sys_packages: [ 'curl', 'vim', 'git' ]

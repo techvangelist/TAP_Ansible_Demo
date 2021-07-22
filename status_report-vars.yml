@@ -1,0 +1,4 @@
+---
+mail_to: abraham@redhat.com
+mail_from: "{{ ansible_user }}@{{ ansible_host }}"
+mail_subject: "System Status for {{ inventory_hostname }}"

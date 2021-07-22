@@ -1,0 +1,18 @@
+**********************************************************
+STATUS REPORT FOR {{ inventory_hostname }}
+DATE: {{ ansible_date_time.date }}
+TIME: {{ ansible_date_time.time }}
+----------------------------------------------------------
+Vendor:			{{ ansible_system_vendor }}
+Server Type:		{{ ansible_product_name }}
+BIOS Version:		{{ ansible_bios_version }}
+O/S Distribution:	{{ ansible_distribution }}
+Distribution Rev:	{{ ansible_distribution_version  }}
+Kernel Rev:		{{ ansible_kernel }}
+Python Version:		{{ ansible_python_version }}
+RAM:			{{ ansible_memtotal_mb }} MB
+Swap:			{{ ansible_swaptotal_mb }} MB
+Uptime:			{{ ansible_uptime_seconds }} seconds
+----------------------------------------------------------
+******** END REPORT FOR {{ inventory_hostname }} *********
+

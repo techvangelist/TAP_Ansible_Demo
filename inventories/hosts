@@ -1,0 +1,11 @@
+[ipaserver]
+idm.techv.lan
+
+[ipaclients]
+cent7-lab01.techv.lan
+cent8-lab01.techv.lan
+rhel8-lab01.techv.lan
+
+[testservers]
+cent8-lab02
+rhel8-lab02

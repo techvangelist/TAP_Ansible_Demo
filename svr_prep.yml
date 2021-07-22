@@ -1,0 +1,54 @@
+---
+- name: Prep server for ansible management
+  hosts: "{{ run_hosts }}"
+  become: true
+  #vars_files:
+  #  - vars/default.yml
+
+  tasks:
+  # Sudo Group Setup
+    - name: Make sure there is a 'wheel' group
+      group:
+        name: wheel
+        state: present
+
+    - name: Allow 'wheel' group to have passwordless sudo
+      lineinfile:
+        path: /etc/sudoers
+        state: present
+        regexp: '^%wheel'
+        line: '%wheel ALL=(ALL) NOPASSWD: ALL'
+        validate: '/usr/sbin/visudo -cf %s'
+
+  # User + Key Setup
+    - name: Create ansible user with sudo privileges
+      user:
+        name: "{{ automation_user }}"
+        state: present
+        groups: wheel
+        append: true
+        create_home: true
+        shell: /bin/bash
+
+    - name: Set authorized key for remote user
+      authorized_key:
+        user: "{{ automation_user }}"
+        state: present
+        key: "{{ copy_local_key }}"
+
+   #  - name: Disable password authentication for root
+   #    lineinfile:
+   #      path: /etc/ssh/sshd_config
+   #      state: present
+   #      regexp: '^#?PermitRootLogin'
+   #      line: 'PermitRootLogin prohibit-password'
+
+  # Install Prereq Packages
+    - name: Update yum
+      yum: 
+        update_cache: yes
+
+    - name: Install required system packages
+      yum: 
+        name:  "{{ sys_packages }}"
+        state: latest

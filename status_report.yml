@@ -1,0 +1,35 @@
+---
+- name: Run status report
+  hosts: testservers
+  vars_files:
+    - ./status_report-vars.yml
+  tasks:
+  - name: Generate status report on remote host
+    ansible.builtin.template:
+      src: ./status_report.j2
+      dest: "/tmp/{{ inventory_hostname }}_status_report.txt"
+  - name: Fetch status report from remote host
+    ansible.builtin.fetch:
+      src: "/tmp/{{ inventory_hostname }}_status_report.txt"
+      dest: /tmp/
+      flat: yes
+  - name: E-mail staus report
+    community.general.mail:
+      host: smtp.gmail.com
+      port: 587
+      username: techvangelist@gmail.com
+      password: wsfebnagfourkzeg
+      to: Abe Snell <abraham@redhat.com>
+      subject: "{{ mail_subject }}"
+      body: "{{ lookup('file', '/tmp/' + inventory_hostname + '_status_report.txt', errors='warn') }}"
+    delegate_to: localhost
+  - name: Cleanup remote hosts
+    file:
+      path: "/tmp/{{ inventory_hostname }}_status_report.txt"
+      state: absent
+  - name: Cleanup local host
+    file:
+      path: "/tmp/{{ inventory_hostname }}_status_report.txt"
+      state: absent
+    delegate_to: localhost
+    run_once: yes

@@ -1,0 +1,14 @@
+---
+- name: Test variables
+  hosts: "{{ run_hosts }}"
+  #become: true
+  #vars_files:
+  #  - vars/default.yml
+
+  tasks:
+    - name: Display Variables
+      debug:
+        msg: > 
+          automation_user is {{ automation_user }}
+          copy_automation_user_key is {{ copy_automation_user_key }}
+          sys_packages is {{ sys_packages }}

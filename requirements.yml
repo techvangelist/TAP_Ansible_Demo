@@ -1,0 +1,6 @@
+---
+collections:
+  # Install the community.general collection from Ansible Galaxy.
+  - name: community.general
+    version: 3.4.0
+    source: https://galaxy.ansible.com
