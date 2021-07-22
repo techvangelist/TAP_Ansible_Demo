@@ -35,7 +35,7 @@
       authorized_key:
         user: "{{ automation_user }}"
         state: present
-        key: "{{ copy_local_key }}"
+        key: "{{ copy_automation_user_key }}"
 
    #  - name: Disable password authentication for root
    #    lineinfile:
