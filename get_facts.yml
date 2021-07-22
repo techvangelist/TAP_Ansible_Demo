@@ -1,0 +1,14 @@
+---
+- hosts: "{{ run_hosts }}"
+  become: true
+  gather_facts: False
+  tasks:
+     - name: Get System Info
+       setup:
+       register: sys_facts
+ 
+     - name: Display Facts
+       debug:
+           var: sys_facts
+           verbosity: 1
+
