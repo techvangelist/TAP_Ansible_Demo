@@ -9,3 +9,6 @@ rhel8-lab01.techv.lan
 [testservers]
 cent8-lab02
 rhel8-lab02
+
+[standalone]
+cent7-lab01

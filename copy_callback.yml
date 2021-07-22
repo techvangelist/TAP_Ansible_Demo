@@ -1,1 +1,16 @@
 ---
+- name: Copy Callback file to remote host
+  hosts: "{{ run_hosts }}"
+  become: true
+  tasks:
+  - name: Copy file to remote hosts
+    synchronize:
+      src: ./ansible-callback.service
+      dest: /etc/systemd/system/ansible-callback.service
+
+  - name: Reload systemd
+    systemd:
+      name: ansible-callback.service
+      state: started
+      enabled: yes
+      reload: yes
